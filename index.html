@@ -9,7 +9,27 @@
   </head>
   <body>
     <div class="hero">
-      <div class="container"></div>
+      <div class="container">
+        <div class="inputs">
+          <div>
+            <div class="label">
+              <span>Storage</span>
+              <span id="storageSpan">100</span>
+            </div>
+            <input
+              type="range"
+              name="storage"
+              id="storageInp"
+              min="0"
+              max="1000"
+              step="1"
+            />
+          </div>
+
+          <input type="range" name="transfer" id="transferInp" />
+        </div>
+        <div class="graph"></div>
+      </div>
     </div>
     <script src="./script/main.js"></script>
   </body>

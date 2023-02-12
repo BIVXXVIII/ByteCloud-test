@@ -1,5 +1,12 @@
-// prices
+// declaration variables
 
+const storage = {
+    span: document.querySelector('#storageSpan'),
+    input: document.querySelector('#storageInp')
+}
+
+
+// prices
 // backblaze.com:
 // мінімальний платіж 7$.
 // ціна Storage: $0.005.
