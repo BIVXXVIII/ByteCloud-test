@@ -11,10 +11,10 @@
     <div class="hero">
       <div class="container">
         <div class="inputs">
-          <div>
+          <div class="storage">
             <div class="label">
-              <span>Storage</span>
-              <span id="storageSpan">100</span>
+              <span>Storage:</span>
+              <span id="storageSpan">500 GB</span>
             </div>
             <input
               type="range"
@@ -25,8 +25,20 @@
               step="1"
             />
           </div>
-
-          <input type="range" name="transfer" id="transferInp" />
+          <div class="transfer">
+            <div class="label">
+              <span>Transfer:</span>
+              <span id="transferSpan">500 GB</span>
+            </div>
+            <input
+              type="range"
+              name="transfer"
+              id="transferInp"
+              min="0"
+              max="1000"
+              step="1"
+            />
+          </div>
         </div>
         <div class="graph"></div>
       </div>

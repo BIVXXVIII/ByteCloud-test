@@ -2,51 +2,27 @@
 
 const storage = {
     span: document.querySelector('#storageSpan'),
-    input: document.querySelector('#storageInp')
+    input: document.querySelector('#storageInp'),
+    currentValue: 500,
+}
+
+const transfer = {
+    span: document.querySelector('#transferSpan'),
+    input: document.querySelector('#transferInp'),
+    currentValue: 500,
 }
 
 
-// prices
-// backblaze.com:
-// мінімальний платіж 7$.
-// ціна Storage: $0.005.
-// ціна Transfer: $0.01.
 
-const backblazeCom = {
-    storagePrice: 0.005,
-    transferPrice: 0.01,
-    minPay: 7
+// input logic
+
+const handleInput = (event, target) => {
+    const value = event.target.value
+    target.span.innerHTML = `${value} GB`
+    target.currentValue = value
+    console.log(target);
+
 }
 
-//  bunny.net:
-// має бути можливість переключатись між опціями HDD та SSD.
-// максимальний платіж 10$.
-// ціна Storage:
-// HDD - $0.01.
-// SSD - $0.02.
-// ціна Transfer: будь-яка опція - $0.01.
-
-
-const bunnyNet = {
-    options: ["HDD", "SDD"],
-    storagePriceHDD: 0.01,
-    storagePriceSDD: 0.02,
-    transferPrice: 0.01,
-    minPay: 10
-}
-
-// // scaleway.com:
-// має бути можливість переключатись між опціями Multi та Single.
-// ціна Storage:
-// Multi - 75 GB безкоштовно, потім $0.06.
-// Single - 75 GB безкоштовно, потім $0.03.
-// ціна Transfer: будь-яка опція - 75 GB безкоштовно, потім $0.02.
-
-const scalewayCom = {}
-
-// vultr.com:
-// мінімальний платіж 5$.
-// ціна Storage: $0.01.
-// ціна Transfer: $0.01.
-
-const vultrCom = {}
+storage.input.addEventListener('change', (e) => { handleInput(e, storage) })
+transfer.input.addEventListener('change', (e)=>{handleInput(e, transfer)})
