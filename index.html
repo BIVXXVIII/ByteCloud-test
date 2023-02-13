@@ -11,12 +11,14 @@
     <div class="hero">
       <div class="container">
         <div class="inputs">
-          <div class="storage">
+          <div class="input_wrapper">
             <div class="label">
               <span>Storage:</span>
               <span id="storageSpan">500 GB</span>
+              <input type="number" name="storageNum" id="storageNum" />
             </div>
             <input
+              class="input"
               type="range"
               name="storage"
               id="storageInp"
@@ -25,12 +27,14 @@
               step="1"
             />
           </div>
-          <div class="transfer">
+          <div class="input_wrapper">
             <div class="label">
               <span>Transfer:</span>
               <span id="transferSpan">500 GB</span>
+              <input type="number" name="transferNum" id="transferNum" />
             </div>
             <input
+              class="input"
               type="range"
               name="transfer"
               id="transferInp"
@@ -40,7 +44,73 @@
             />
           </div>
         </div>
-        <div class="graph"></div>
+        <div class="graph">
+          <!-- name -->
+          <div class="graph_name" id="backblaze">backblaze</div>
+          <div class="graph_name" id="bunny">bunny</div>
+          <div class="graph_name" id="scaleway">scaleway</div>
+          <div class="graph_name" id="vultr">vultr</div>
+          <!-- options -->
+          <div class="graph_options" id="bunnyOptions">
+            <label>
+              <span>HDD</span>
+              <input
+                type="radio"
+                name="bunnyRadio"
+                id="bunny_HDD"
+                value="HDD"
+                checked
+              />
+            </label>
+            <label>
+              <span>SDD</span>
+              <input
+                type="radio"
+                name="bunnyRadio"
+                id="bunny_SDD"
+                value="SDD"
+              />
+            </label>
+          </div>
+          <div class="graph_options" id="scalewayOptions">
+            <label>
+              <span>Single</span>
+              <input
+                type="radio"
+                name="scalewayRadio"
+                id="scaleway_single"
+                value="single"
+                checked
+              />
+            </label>
+            <label>
+              <span>Multi</span>
+              <input
+                type="radio"
+                name="scalewayRadio"
+                id="scaleway_multi"
+                value="multi"
+              />
+            </label>
+          </div>
+          <!-- graph  -->
+          <div class="graph_visual" id="backblazeGraph">
+            backblazeGraph
+            <span id="backblazePrice">100</span>
+          </div>
+          <div class="graph_visual" id="bunnyGraph">
+            bunnyGraph
+            <span id="bunnyPrice">100</span>
+          </div>
+          <div class="graph_visual" id="scalewayGraph">
+            scalewayGraph
+            <span id="scalewayPrice">100</span>
+          </div>
+          <div class="graph_visual" id="vultrGraph">
+            vultrGraph
+            <span id="vultrPrice">100</span>
+          </div>
+        </div>
       </div>
     </div>
     <script src="./script/main.js"></script>
