@@ -6,19 +6,21 @@ const storage = {
     currentValue: 500,
     inputNum: document.querySelector('#storageNum')
 }
-
 const transfer = {
     span: document.querySelector('#transferSpan'),
     input: document.querySelector('#transferInp'),
     currentValue: 500,
     inputNum: document.querySelector('#transferNum')
 }
-const inputsArr = [storage, transfer]
 
+const inputsArr = [storage, transfer]
+let windowHorizontal = true
 // graph
+
 const providerList = {
     backblaze: {
         id: "backblaze",
+        color: "red",
         storage: 0.005,
         transfer: 0.01,
         minPay: 7,
@@ -35,6 +37,7 @@ const providerList = {
     },
     bunny: {
         id: 'bunny',
+        color: "orange",
         storage: 0.01,
         // storage default HDD, SDD advance option
         storageAdv: 0.02,
@@ -58,6 +61,7 @@ const providerList = {
     },
     scaleway: {
         id: 'scaleway',
+        color: "#8f55be",
         storage: 0.03,
         storageAdv: 0.06,
         advOptions: true,
@@ -82,6 +86,7 @@ const providerList = {
     },
     vultr: {
         id: "vultr",
+        color: "#0099ff",
         storage: 0.01,
         transfer: 0.01,
         minPay: 5,
@@ -98,8 +103,6 @@ const providerList = {
     }
 }
 
-
-
 // calc logic
 
 const minimalPay = (id) => {
@@ -110,7 +113,6 @@ const minimalPay = (id) => {
     }
 }
 
-// прописати зміну від Radio btn
 const calcSingePrice = (id) => {
     const root = providerList[id]
     const priceSlice = root.price
@@ -162,14 +164,31 @@ const parsePrices = () => {
     Object.keys(providerList).map(index => calcSingePrice(index))
 }
 
+const minPriceParse = () => {
+    const values = {}
+    Object.keys(providerList).map(id => {
+        values[id] = providerList[id].price.result
+    })
+    let max = 100
+    let site 
+    for (key in values) {
+        if (values[key] < max) {
+            max = values[key]
+            site = key
+        }
+    }
+    return site
+}
+
 const setPrice = () => {
     parsePrices()
-    
     Object.keys(providerList).map(id => {
         providerList[id].selectors.price.innerHTML = `${providerList[id].price.result}$`
     })
 }
 setPrice()
+
+
 
 // input logic
 
@@ -184,12 +203,35 @@ const handleInput = (event, target) => {
     target.currentValue = value
     inputBinding(target)
     setPrice()
+    let min = minPriceParse()
+    Object.keys(providerList).map((obj) => {
+    setColor(obj, false)
+    })
+    setColor(min, true)
+    
 }
 
 const showNum = (target) => {
     target.inputNum.style.display = 'block'
     target.span.style.display = 'none'
 }
+
+// set colors
+const setColor = (id, bool) => {
+    const path = providerList[id]
+    const inactiveCol = 'rgba(0, 0, 0, 0.5)'
+    if (bool == true) {
+        path.selectors.name.style.color = path.color
+        path.selectors.graph.style.background = path.color
+        path.selectors.price.style.color = path.color
+    } else {
+        path.selectors.name.style.color = inactiveCol
+        path.selectors.graph.style.background = inactiveCol
+        path.selectors.price.style.color = inactiveCol
+    }
+}
+
+
 
 // binding functions to elements
 
@@ -217,7 +259,6 @@ providerList.bunny.selectors.SDD.addEventListener('change', () => {
 })
 
 providerList.scaleway.selectors.single.addEventListener('change', () => {
-
     if (providerList.scaleway.advActive) {
         providerList.scaleway.advActive = !providerList.scaleway.advActive
         setPrice()
@@ -225,9 +266,16 @@ providerList.scaleway.selectors.single.addEventListener('change', () => {
 })
 
 providerList.scaleway.selectors.multi.addEventListener('change', () => {
-    
     if (!providerList.scaleway.advActive) {
         providerList.scaleway.advActive = !providerList.scaleway.advActive
         setPrice()
+    }
+})
+
+window.addEventListener('resize', (e) => {
+    if (e.target.innerWidth < 600) {
+        windowHorizontal = false
+    } else if (e.target.innerWidth >= 600) {
+        windowHorizontal = true
     }
 })

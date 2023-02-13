@@ -117,6 +117,7 @@ body {
   position: relative;
   padding: 5px 0 5px 10px;
   border-radius: 0 20px 20px 0;
+  background: gray;
 }
 .graph_visual span {
   position: absolute;
@@ -151,41 +152,39 @@ body {
 }
 .graph #backblaze {
   grid-area: backblaze;
-  color: red;
+}
+.graph #backblazePrice,
+.graph #bunnyPrice,
+.graph #scalewayPrice,
+.graph #vultrPrice {
+  font-weight: 600;
 }
 .graph #backblazeGraph {
   grid-area: backblazeGraph;
-  background: red;
 }
 .graph #bunny {
   grid-area: bunny;
-  color: orange;
 }
 .graph #bunnyGraph {
   grid-area: bunnyGraph;
-  background: orange;
 }
 .graph #bunnyOptions {
   grid-area: bunnyOptions ;
 }
 .graph #scaleway {
   grid-area: scaleway;
-  color: #8f55be;
 }
 .graph #scalewayGraph {
   grid-area: scalewayGraph;
-  background: #8f55be;
 }
 .graph #scalewayOptions {
   grid-area: scalewayOptions;
 }
 .graph #vultr {
   grid-area: vultr;
-  color: #0099ff;
 }
 .graph #vultrGraph {
   grid-area: vultrGraph;
-  background: #0099ff;
 }
 .input {
   position: relative;
