@@ -1,6 +1,7 @@
 @import url(./components/var.less);
 @import url(https://fonts.googleapis.com/css?family=Roboto:100,100italic,300,300italic,regular,italic,500,500italic,700,700italic,900,900italic);
 
+
 *, *::after, *::before{
     box-sizing: border-box;
 }
@@ -10,187 +11,71 @@ body{
 }
 
 .hero {
+    min-height: 100vh;
+    .container {
+        display: flex;
+        margin: 0 auto;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column nowrap;
+}
+}
+
+@import url(./components/input.less);
+.graph {
+    display: flex;
+    flex-flow: row nowrap;
+}
+.graph_names {
+display: flex;
+flex-flow: column nowrap;
 
 }
-.container {
-    width: 90vw;
-    margin: 0 auto;
+.graph_name {
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
-    align-items: start;
-    gap: 50px;
+    align-items: center;
+    width: 140px;
+    height: 100px;
+    text-transform: capitalize;
+    font-weight: 700;
 }
-.inputs {
+
+.graph_name_options {
+    input{
+        transform: translateY(-5%);
+    }
+}
+.visualization{
     display: flex;
-    gap: 50px;
-    align-self: center;
-}
+    flex-flow: column nowrap;
 
-.input_wrapper{
-    width: 200px;
 }
-
-.label {
+.graph_visual {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+    flex-flow: column nowrap;
+    height: 100px;
+    width: 600px;
+    justify-content: center;
 }
-
-.graph {
-    display: grid;
-    width: 80vw;
-    grid-template-columns: 100px 70px 1fr;
-    grid-template-rows: repeat(4, 60px);
-    grid-template-areas: 'backblaze empty backblazeGraph'
-    'bunny bunnyOptions bunnyGraph'
-    'scaleway scalewayOptions scalewayGraph'
-    'vultr vultrOptions vultrGraph';
-
-    &_name{
-        display: flex;
-        align-items: center;
-        font-weight: 600;
-        text-transform: capitalize;
-    }
-    &_visual{
-        position: relative;
-        padding: 5px 0 5px 10px;
-        border-radius: 0 20px 20px 0;
-        background: gray;
-        span{
-            position: absolute;
-            right: -50px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        
-    }
-    &_options{
-        display: flex;
-        flex-flow: column nowrap;
-        justify-content: center;
-        align-items: center;
-
-        label{
-            display: flex;
-            width: 100%;
-            justify-content: space-between;
-            align-items: center;
-            padding: 3px;
-            &:first-child{
-                border-bottom: 2px solid white;
-                background: darkgreen;
-                color: white;
-            }
-            &:last-child{
-                background: darkblue;
-                color: white;
-
-            }
-            input{
-                transform: translateY(-15%);
-            }
-        }
-    }
-    // grid-area && color by Id:
-    #backblaze{
-        grid-area: backblaze;
-        // color: @red;
-    }
-    #backblazePrice, #bunnyPrice,#scalewayPrice, #vultrPrice{
-        font-weight: 600;
-    }
-    #backblazePrice{
-        // color: @red;
-    }
-    #backblazeGraph{
-        grid-area: backblazeGraph;
-        // background: @red;
-    }
-    #bunny{
-        grid-area: bunny;
-        // color: @orange;
-    }
-    #bunnyGraph{
-        grid-area: bunnyGraph;
-        // background: @orange;
-    }
-    #bunnyOptions{
-        grid-area: bunnyOptions ;
-    }
-    #scaleway{
-        grid-area: scaleway;
-        // color: @purple;
-
-    }
-    #scalewayGraph{
-        grid-area: scalewayGraph;
-        // background: @purple;
-    }
-    #scalewayOptions{
-        grid-area: scalewayOptions;
-    }
-    #vultr{
-        grid-area: vultr;
-        // color: @blue;
-    }
-    #vultrGraph{
-        grid-area: vultrGraph;
-        // background: @blue;
-    }
-    
-    
-}
-
-.input{
+.graph_visual__slider {
     position: relative;
-    -webkit-appearance: none;
-    border-radius: 5px;
-    width: 200px;
-    &:focus{
-            outline: 4px solid @blue;
-        }
-    &::-webkit-slider-runnable-track{
-        -webkit-appearance: none;
-        position: relative;
-        background: rgba(0,0,0,.2);
-        border-radius: 5px;
-        height: 15px;
-        outline: 2px solid @blue;
-        box-shadow: 10px 10px 10px rgba(0,0,0,.2);
-        
-    }
-    &::-webkit-slider-thumb{
-        -webkit-appearance: none;
-        background: @blue;
-        width: 15px;
-        height: 15px;
-        border-radius: 5px;
-        border: 2px solid white
-    }
+    height: 50%;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, .4);
+    border-radius: 0 20px 20px 0;
 
-    // mixin
-    .label(@content){
+
+    span{
         position: absolute;
-        content: @content;
-        bottom: -120%;
-        color: @soft_gray;
-        font-weight: 800;
-    }
-
-    // pseudo
-    &::before{
-        .label('1');
-        left: 0;
-        transform: translateX(-50%);
-    }
-    &::after{
-        .label('1000');
-        right: 0;
-        transform: translate(50%);
+        right: -60px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-weight: 700;
     }
 }
+
+@import url(./components/adaprive.less);
 
 #transferNum, #storageNum {
     display: none;

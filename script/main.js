@@ -14,7 +14,7 @@ const transfer = {
 }
 
 const inputsArr = [storage, transfer]
-let windowHorizontal = true
+
 // graph
 
 const providerList = {
@@ -31,7 +31,7 @@ const providerList = {
         },
         selectors: {
             name: document.querySelector('#backblaze'),
-            graph: document.querySelector('#backblazeGraph'),
+            graph: document.querySelector('#backblazeGraphSlider'),
             price: document.querySelector('#backblazePrice')
         }
     },
@@ -53,7 +53,7 @@ const providerList = {
         },
         selectors: {
             name: document.querySelector('#bunny'),
-            graph: document.querySelector('#bunnyGraph'),
+            graph: document.querySelector('#bunnyGraphSlider'),
             price: document.querySelector('#bunnyPrice'),
             HDD: document.querySelector('#bunny_HDD'),
             SDD: document.querySelector('#bunny_SDD')
@@ -77,7 +77,7 @@ const providerList = {
         },
         selectors: {
             name: document.querySelector('#scaleway'),
-            graph: document.querySelector('#scalewayGraph'),
+            graph: document.querySelector('#scalewayGraphSlider'),
             price: document.querySelector('#scalewayPrice'),
             multi: document.querySelector('#scaleway_multi'),
             single: document.querySelector('#scaleway_single')
@@ -97,7 +97,7 @@ const providerList = {
         },
         selectors: {
             name: document.querySelector('#vultr'),
-            graph: document.querySelector('#vultrGraph'),
+            graph: document.querySelector('#vultrGraphSlider'),
             price: document.querySelector('#vultrPrice')
         }
     }
@@ -183,12 +183,11 @@ const minPriceParse = () => {
 const setPrice = () => {
     parsePrices()
     Object.keys(providerList).map(id => {
-        providerList[id].selectors.price.innerHTML = `${providerList[id].price.result}$`
+        providerList[id].selectors.price.innerHTML = `${(providerList[id].price.result.toFixed(2) * 100)/100}$`
     })
+    
 }
 setPrice()
-
-
 
 // input logic
 
@@ -203,23 +202,25 @@ const handleInput = (event, target) => {
     target.currentValue = value
     inputBinding(target)
     setPrice()
-    let min = minPriceParse()
-    Object.keys(providerList).map((obj) => {
-    setColor(obj, false)
-    })
-    setColor(min, true)
-    
+    colorsChange()
+    setGraph()
 }
 
 const showNum = (target) => {
     target.inputNum.style.display = 'block'
     target.span.style.display = 'none'
+    target.inputNum.focus()
+}
+
+const hideNum = (target) => {
+    target.inputNum.style.display = 'none'
+    target.span.style.display = 'block'
 }
 
 // set colors
 const setColor = (id, bool) => {
     const path = providerList[id]
-    const inactiveCol = 'rgba(0, 0, 0, 0.5)'
+    const inactiveCol = 'rgba(0, 0, 0, 0.3)'
     if (bool == true) {
         path.selectors.name.style.color = path.color
         path.selectors.graph.style.background = path.color
@@ -231,7 +232,15 @@ const setColor = (id, bool) => {
     }
 }
 
+const colorsChange = () => {
+    let min = minPriceParse()
+    Object.keys(providerList).map((obj) => {
+    setColor(obj, false)
+    })
+    setColor(min, true)
+}
 
+colorsChange()
 
 // binding functions to elements
 
@@ -241,41 +250,72 @@ inputsArr.map(elem => {
     })
     elem.span.addEventListener('click', () => { showNum(elem) })
     inputBinding(elem)
-    elem.inputNum.addEventListener('change', (e)=> {handleInput(e, elem)})
+    elem.inputNum.addEventListener('change', (e) => { handleInput(e, elem) })
+    elem.inputNum.addEventListener('focusout', (e) => {hideNum(elem)})
 })
 
+// width / height logic
+
+const calcGraph = (id) => {
+    const percent = 0.74
+    const price = providerList[id].price.result
+    let value =  (price / percent).toFixed(0)
+    const graph = providerList[id].selectors.graph
+    if (value < 5) {
+        value = 5
+    }
+    if (window.innerWidth >= 850) {
+        graph.style.width = `${value}%`
+        graph.style.height = "50%"
+
+    } else {
+        graph.style.height = `${value}%`
+        graph.style.width = "50%"
+    }
+    
+}
+
+const setGraph = () => {
+    Object.keys(providerList).map(id => calcGraph(id))
+}
+setGraph()
 // advance options events
 providerList.bunny.selectors.HDD.addEventListener('change', () => {
     if (providerList.bunny.advActive) {
         providerList.bunny.advActive = !providerList.bunny.advActive
         setPrice()
+        setGraph()
+        colorsChange()
+
     }
 })
 providerList.bunny.selectors.SDD.addEventListener('change', () => {
     if (!providerList.bunny.advActive) {
         providerList.bunny.advActive = !providerList.bunny.advActive
         setPrice()
+        setGraph()
+            colorsChange()
+
     }
 })
-
 providerList.scaleway.selectors.single.addEventListener('change', () => {
     if (providerList.scaleway.advActive) {
         providerList.scaleway.advActive = !providerList.scaleway.advActive
         setPrice()
+        setGraph()
+        colorsChange()
+
     }
 })
-
 providerList.scaleway.selectors.multi.addEventListener('change', () => {
     if (!providerList.scaleway.advActive) {
         providerList.scaleway.advActive = !providerList.scaleway.advActive
         setPrice()
+        setGraph()
+        colorsChange()
     }
 })
 
-window.addEventListener('resize', (e) => {
-    if (e.target.innerWidth < 600) {
-        windowHorizontal = false
-    } else if (e.target.innerWidth >= 600) {
-        windowHorizontal = true
-    }
+window.addEventListener('resize', () => {
+    setGraph()
 })

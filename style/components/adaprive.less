@@ -1,0 +1,38 @@
+// main: ./../main.less
+
+@media (max-width: 850px)  {
+    .inputs {
+        flex-flow: column nowrap;
+        gap: 5px;
+    }
+    .graph{
+        flex-flow: column-reverse;
+    }
+    .graph_names{
+        flex-flow: row nowrap;
+    }
+    .graph_name{
+        font-size: .9rem;
+        width: 130px;
+    }
+    .visualization{
+        flex-flow: row nowrap;
+    }
+    .graph_visual{
+        display: flex;
+        width: 130px;
+        height: 600px;
+        align-items: center;
+        justify-content: end;
+    }
+    .graph_visual__slider{
+        width: 50%;
+        border-radius: 20px 20px 0 0;
+
+    span{
+        top: -60px;
+        right: 50%;
+        transform: translateX(50%) translateY(0%);
+    }
+    }
+}

@@ -78,16 +78,18 @@
 body {
   font-family: 'Roboto';
 }
-.container {
-  width: 90vw;
-  margin: 0 auto;
+.hero {
+  min-height: 100vh;
+}
+.hero .container {
   display: flex;
-  flex-flow: column nowrap;
+  margin: 0 auto;
   justify-content: center;
-  align-items: start;
-  gap: 50px;
+  align-items: center;
+  flex-flow: column nowrap;
 }
 .inputs {
+  margin-top: 40px;
   display: flex;
   gap: 50px;
   align-self: center;
@@ -100,97 +102,12 @@ body {
   justify-content: space-between;
   margin-bottom: 10px;
 }
-.graph {
-  display: grid;
-  width: 80vw;
-  grid-template-columns: 100px 70px 1fr;
-  grid-template-rows: repeat(4, 60px);
-  grid-template-areas: 'backblaze empty backblazeGraph' 'bunny bunnyOptions bunnyGraph' 'scaleway scalewayOptions scalewayGraph' 'vultr vultrOptions vultrGraph';
-}
-.graph_name {
-  display: flex;
-  align-items: center;
-  font-weight: 600;
-  text-transform: capitalize;
-}
-.graph_visual {
-  position: relative;
-  padding: 5px 0 5px 10px;
-  border-radius: 0 20px 20px 0;
-  background: gray;
-}
-.graph_visual span {
-  position: absolute;
-  right: -50px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.graph_options {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-}
-.graph_options label {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  padding: 3px;
-}
-.graph_options label:first-child {
-  border-bottom: 2px solid white;
-  background: darkgreen;
-  color: white;
-}
-.graph_options label:last-child {
-  background: darkblue;
-  color: white;
-}
-.graph_options label input {
-  transform: translateY(-15%);
-}
-.graph #backblaze {
-  grid-area: backblaze;
-}
-.graph #backblazePrice,
-.graph #bunnyPrice,
-.graph #scalewayPrice,
-.graph #vultrPrice {
-  font-weight: 600;
-}
-.graph #backblazeGraph {
-  grid-area: backblazeGraph;
-}
-.graph #bunny {
-  grid-area: bunny;
-}
-.graph #bunnyGraph {
-  grid-area: bunnyGraph;
-}
-.graph #bunnyOptions {
-  grid-area: bunnyOptions ;
-}
-.graph #scaleway {
-  grid-area: scaleway;
-}
-.graph #scalewayGraph {
-  grid-area: scalewayGraph;
-}
-.graph #scalewayOptions {
-  grid-area: scalewayOptions;
-}
-.graph #vultr {
-  grid-area: vultr;
-}
-.graph #vultrGraph {
-  grid-area: vultrGraph;
-}
 .input {
   position: relative;
   -webkit-appearance: none;
   border-radius: 5px;
   width: 200px;
+  margin-bottom: 40px;
 }
 .input:focus {
   outline: 4px solid #0099ff;
@@ -215,7 +132,7 @@ body {
 .input::before {
   position: absolute;
   content: '1';
-  bottom: -120%;
+  bottom: -30px;
   color: rgba(0, 0, 0, 0.5);
   font-weight: 800;
   left: 0;
@@ -224,11 +141,91 @@ body {
 .input::after {
   position: absolute;
   content: '1000';
-  bottom: -120%;
+  bottom: -30px;
   color: rgba(0, 0, 0, 0.5);
   font-weight: 800;
   right: 0;
   transform: translate(50%);
+}
+.graph {
+  display: flex;
+  flex-flow: row nowrap;
+}
+.graph_names {
+  display: flex;
+  flex-flow: column nowrap;
+}
+.graph_name {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 140px;
+  height: 100px;
+  text-transform: capitalize;
+  font-weight: 700;
+}
+.graph_name_options input {
+  transform: translateY(-5%);
+}
+.visualization {
+  display: flex;
+  flex-flow: column nowrap;
+}
+.graph_visual {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100px;
+  width: 600px;
+  justify-content: center;
+}
+.graph_visual__slider {
+  position: relative;
+  height: 50%;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+  border-radius: 0 20px 20px 0;
+}
+.graph_visual__slider span {
+  position: absolute;
+  right: -60px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: 700;
+}
+@media (max-width: 850px) {
+  .inputs {
+    flex-flow: column nowrap;
+    gap: 5px;
+  }
+  .graph {
+    flex-flow: column-reverse;
+  }
+  .graph_names {
+    flex-flow: row nowrap;
+  }
+  .graph_name {
+    font-size: 0.9rem;
+    width: 130px;
+  }
+  .visualization {
+    flex-flow: row nowrap;
+  }
+  .graph_visual {
+    display: flex;
+    width: 130px;
+    height: 600px;
+    align-items: center;
+    justify-content: end;
+  }
+  .graph_visual__slider {
+    width: 50%;
+    border-radius: 20px 20px 0 0;
+  }
+  .graph_visual__slider span {
+    top: -60px;
+    right: 50%;
+    transform: translateX(50%) translateY(0%);
+  }
 }
 #transferNum,
 #storageNum {
